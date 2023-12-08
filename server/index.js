@@ -10,12 +10,20 @@ app.listen(PORT , () => {
     console.log("App listening on port" ,PORT)
 })
 
+// import db and call connection method
 const dbConnect = require('./config/database');
 dbConnect();
+
+const routes = require('./routes/user');
+app.use('/api/v1',routes)
+
+
 
 app.get('/', (req , res) => {
     res.send("<h1>JOb Listing Is Working Fine</h1>")
 })
+
+
 
 
 // Health check route
