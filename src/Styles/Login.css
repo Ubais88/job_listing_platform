@@ -1,0 +1,79 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
+    justify-content: center;
+}
+
+.leftSide{
+    
+    >.para1{
+        font-family: DM Sans;
+        font-size:2.3rem;
+        font-weight: 700;
+        line-height: 3rem;
+        letter-spacing: 0em;
+        color: black;
+    }
+
+    >.para2{
+        font-family: DM Sans;
+        font-size: 1.3rem;
+        font-weight: 500;
+        line-height: 1.9rem;
+        color: #525252;
+        
+    }
+}
+
+.form{
+    display: flex;
+    flex-direction: column;  
+    gap: 1rem;
+    margin: 2rem 0;
+
+
+    >.Input{
+        width: 40vw;
+        height: 8vh;
+        border-radius: 5px;
+        border: 2px solid #C2C2C2;
+        font-family: DM Sans;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #525252;
+        padding-left: 1rem;
+        cursor: pointer;
+    }
+}
+
+.formbtn{
+    font-family: DM Sans;
+    font-size: 1.2rem;
+    font-weight: 400;
+    background: #ED5353;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.6rem 2.5rem ;
+    cursor: pointer;
+}
+
+.nextRoute{
+    color: #525252;
+    font-family: DM Sans;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.checkboxContainer{
+    display: flex;
+    gap: 0.3rem;
+}

@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.templateContainer{
+    object-fit: contain;
+}
+.tempmain{
+    position: relative;
+    text-align: center;
+}
+
+.tempHeading{
+    position: absolute;
+    z-index: 1;
+    color: #ffff;
+    font-family: DM Sans;
+    font-size: 2.2rem;
+    font-weight: 500;
+    top: 1.4rem;text-align: center;
+    padding: 0 4rem;
+}
+
+.TempLogo{
+    height: 100vh;
+    width: 40vw;
+} 

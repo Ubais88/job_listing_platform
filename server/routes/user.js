@@ -17,5 +17,11 @@ router.get('/test' , auth , (req , res) => {
     })
 })
 
+router.use('/*' , (req , res) => {
+    res.status(404).json({
+        message:"Something went wrong! Please try after some time."
+    })
+})
+
 
 module.exports = router 
