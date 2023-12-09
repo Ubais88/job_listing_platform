@@ -8,15 +8,15 @@ const userSchema = new mongoose.Schema({
     },
     email:{
         type:'String',
-        required:true
+        required:true,
+        unique:true
     },
     mobile:{
-        type:'Number',
+        type:'String',
         required:true
     },
     password:{
         type:'String',
-        minlength:6,
         required:true
     },
 })
