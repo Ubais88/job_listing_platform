@@ -47,7 +47,15 @@ const jobSchema = new mongoose.Schema({
     information:{
         type:"String",
         required: true
-    }
+    },
+    createdAt:{
+        type:"Date",
+        default:Date.now,
+    },
+    // recrutorName:{
+    //     type:"String",
+    //     required: true
+    // }
 
 })
 
