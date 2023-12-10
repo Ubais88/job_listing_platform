@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Assets/header.png";
 import "../Styles/Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -12,8 +13,12 @@ const Navbar = () => {
       <div className="finderContainer">
         <p className="platformtitle">Jobfinder</p>
         <div className="authbtncontainer">
-          <button className="loginbtn">Login</button>
-          <button className="registerbtn">Register</button>
+          <button className="loginbtn">
+          <Link to='/login' className="loginlink">Login</Link>
+          </button>
+          <button className="registerbtn">
+            <Link to='/register' className="registerlink">Register</Link>
+          </button>
         </div>
       </div>
     </div>
