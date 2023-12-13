@@ -2,6 +2,7 @@ import React from "react";
 import Template from "./Template";
 import "../Styles/Login.css";
 import { Link } from "react-router-dom";
+import image from "../Assets/register.png"
 
 const Signup = () => {
   return (
@@ -34,7 +35,7 @@ const Signup = () => {
       </div>
 
       <div>
-        <Template />
+        <Template heading={"Your Personal Job Finder"} img={image} />
       </div>
     </div>
   );

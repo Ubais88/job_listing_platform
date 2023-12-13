@@ -1,14 +1,13 @@
 import React from 'react'
-import image from "../Assets/register.png"
 import '../Styles/Template.css'
 
-const Template = () => {
+const Template = ({heading , img}) => {
   return (
     <div className='templateContainer'>
       <div className='tempmain'>
-        <p className='tempHeading'>Your Personal Job Finder</p>
+        <p className='tempHeading'>{heading}</p>
         <img 
-          src={image} 
+          src={img} 
           alt="logo" 
           className='TempLogo'
         />

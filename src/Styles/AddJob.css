@@ -1,0 +1,79 @@
+.addJobContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addJobMain {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 4rem;
+}
+
+.addPara {
+  font-family: DM Sans;
+  font-size: 2.3rem;
+  font-weight: 700;
+  line-height: 3rem;
+  letter-spacing: 0em;
+  color: black;
+}
+
+.add_job {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+
+.addJobText {
+  font-family: DM Sans;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: black;
+}
+
+.addJobInput {
+  border: 1.5px solid #c2c2c2;
+  border-radius: 5px;
+  width: 30vw;
+  font-family: DM Sans;
+  font-size: .9rem;
+  font-weight: 500;
+  padding: 0.4rem;
+}
+
+.cancelbtn,.addJobBtn{
+  font-family: Roboto;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: .4rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.btnHolder{
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  width: 100%;
+}
+.cancelbtn{
+  color: #C2C2C2;
+  border: 1px solid #CECECE;
+  
+}
+.addJobBtn{
+  color: #FFFFFF;
+  background-color: #ED5353;
+  border: none;
+}
+
+
+
+
+
+
+
