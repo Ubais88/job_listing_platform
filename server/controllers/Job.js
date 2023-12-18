@@ -1,3 +1,4 @@
+const job = require("../models/job");
 const Job = require("../models/job");
 
 exports.createJob = async (req, res) => {
@@ -194,3 +195,25 @@ exports.filterJob = async (req, res) => {
     });
   }
 };
+
+
+exports.detailJob = async(req ,res) => {
+    try{
+        const jobId = req.params.jobId;
+        console.log(jobId)
+        const jobDetails = await Job.findById({_id:jobId});
+        res.status(200).json({
+            success:true,
+            jobDetails:jobDetails,
+            message:"job details fetched succesffuly"
+        })
+    }
+    catch(error){
+        console.log(error)
+        res.status(404).json({
+            success: false,
+            message: "something went wrong in fetching job details",
+            error:error.message
+        })
+    }
+}

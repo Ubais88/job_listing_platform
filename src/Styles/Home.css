@@ -49,6 +49,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 .select {
@@ -70,12 +71,14 @@
 }
 
 .selected {
-  display: flex;
-  gap: 1rem;
+   display: grid;;
+  gap: 0.3rem;
+  grid-template-columns: repeat(3, 1fr);
 
   > .skills {
     display: flex;
     align-items: center;
+    gap: 0rem;
 
     > .skillP {
       background-color: #ffeeee;
@@ -83,7 +86,7 @@
       font-size: 1rem;
       font-weight: 500;
       color: black;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.7rem;
     }
 
     > .crossIcon {
@@ -116,6 +119,7 @@
     font-weight: 500;
     padding: 0.4rem 0.6rem;
     border-radius: 0.5rem;
+    cursor: pointer;
 }
 
 

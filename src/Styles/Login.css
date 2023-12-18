@@ -38,8 +38,7 @@
     gap: 1rem;
     margin: 2rem 0;
 
-
-    >.Input{
+.Input{
         width: 40vw;
         height: 8vh;
         border-radius: 5px;
@@ -63,6 +62,8 @@
     border-radius: 5px;
     padding: 0.6rem 2.5rem ;
     cursor: pointer;
+    width: 18vw;
+    margin-top: 1rem;
 }
 
 .nextRoute{

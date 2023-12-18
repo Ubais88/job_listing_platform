@@ -1,1 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Roboto:wght@400;500;700;900&display=swap');
+
+
+.errors{
+    color: red;
+    height: 1vh;
+    margin-top: -0.8rem;
+    margin-bottom: 0.4;
+}

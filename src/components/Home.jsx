@@ -7,9 +7,31 @@ import logo from "../Assets/companyLogo.png";
 import flag from "../Assets/Flag.png";
 import { FaUserGroup } from "react-icons/fa6";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 const Home = () => {
-  const [data, setData] = useState(true);
+  const navigate = useNavigate();
+  const [skills, setSkills] = useState([]);
+  const { isLoggedIn , LogoutUser} = useAuth();
+
+const clickHandler = (e) => {
+  console.log(e.target.value)
+  setSkills([
+    ...skills,
+    e.target.value
+  ])
+}
+
+const clearSkills = () => {
+  setSkills([])
+}
+const removeSkill = (index) => {
+  console.log(index)
+  const newArray = skills.slice(0, index).concat(skills.slice(index + 1));
+  setSkills(newArray)
+}
+
   return (
     <div>
       {/* navbar */}
@@ -32,40 +54,38 @@ const Home = () => {
           </div>
           <div className="containerfilter">
             <div className="options">
-              <select name="" id="" className="select">
-                <option value="default" selected>
-                  Skills
-                </option>
-                <option value="option1">HTML</option>
-                <option value="option2">CSS</option>
-                <option value="option3">JAVASCRIPT</option>
-                <option value="option4">REACT</option>
+              <select className="select" onChange={clickHandler}>
+                <option value="default" selected>Skills</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="JAVASCRIPT">JAVASCRIPT</option>
+                <option value="REACT">REACT</option>
               </select>
               <div className="selected">
-                <div className="skills">
-                  <p className="skillP">HTML</p>
-                  <RxCross2 size={34} className="crossIcon" />
+              {
+                skills.map((skills , index) => (
+                  <div className="skills" key={index}>
+                  <p className="skillP" >{skills}</p>
+                  <RxCross2 size={34} className="crossIcon" onClick={() => removeSkill(index)} />
                 </div>
-
-                <div className="skills">
-                  <p className="skillP">CSS</p>
-                  <RxCross2 size={34} className="crossIcon" />
-                </div>
+                ))
+              }
+               
               </div>
             </div>
-            {data ? (
+            {!isLoggedIn ? (
               <div className="clearContainer">
-                <p className="clear">Clear</p>
+                <p className="clear" onClick={clearSkills} style={{display: skills.length < 1 ? 'none' : 'block'}}>Clear</p>
               </div>
             ) : (
               <div className="addmain">
-                <button className="addbtn">+ Add Job</button>
+                <button className="addbtn" onClick={()=> navigate('/addjob')}>+ Add Job</button>
               </div>
             )}
           </div>
-          {!data && (
+          {isLoggedIn && (
             <div className="clearContainer">
-              <p className="clear clearm">Clear</p>
+              <p className="clear clearm" onClick={clearSkills} style={{display: skills.length < 1 ? 'none' : 'block'}}>Clear</p>
             </div>
           )}
         </div>
@@ -107,7 +127,7 @@ const Home = () => {
                 <p className="jobskillreq">JAVASCRIPT</p>
               </div>
               <div className="jobview">
-                <button className="jobviewdetails">View details</button>
+                <button className="jobviewdetails" onClick={()=> navigate('/jobdetail')}>View details</button>
               </div>
             </div>
           </div>
