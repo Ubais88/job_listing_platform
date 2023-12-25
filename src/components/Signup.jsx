@@ -4,6 +4,7 @@ import "../Styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../Assets/register.png";
 import axios from "axios";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Signup = () => {
     e.preventDefault();
     console.log(formData);
     try{
-      const response = await axios.post('http://localhost:5000/api/v1/register',formData)
+      const response = await axios.post(`${BASE_URL}/register`,formData)
       const { success, message } = response.data;
 
         if (success) {

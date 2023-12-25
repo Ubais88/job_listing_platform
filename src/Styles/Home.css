@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  padding-bottom:1rem ;
+  padding-bottom: 1rem;
 }
 
 .searchContainer {
@@ -71,8 +71,8 @@
 }
 
 .selected {
-   display: grid;;
-  gap: 0.3rem;
+  display: grid;
+  gap: 0.4rem;
   grid-template-columns: repeat(3, 1fr);
 
   > .skills {
@@ -86,6 +86,7 @@
       font-size: 1rem;
       font-weight: 500;
       color: black;
+      gap: 0;
       padding: 0.5rem 0.7rem;
     }
 
@@ -106,138 +107,124 @@
     cursor: pointer;
   }
 }
-.clearm{
-    margin-top: -1rem;
+.clearm {
+  margin-top: -1rem;
 }
 
-.addbtn{
-    background-color: #ED5353;
-    color: white;
-    border: none;
+.addbtn {
+  background-color: #ed5353;
+  color: white;
+  border: none;
+  font-family: Roboto;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.joblist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  width: 64vw;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0px 0px 22px 4px #ff202040;
+}
+
+.logoside {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Company_Logo {
+  height: 3rem;
+}
+
+.jobdetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.jobRole {
+  font-family: Roboto;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: black;
+}
+
+.jobaccets {
+  display: flex;
+  gap: 1rem;
+}
+
+.employee {
+  font-family: Roboto;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #9c9c9c;
+}
+.grouplogo,
+.currency {
+  color: #9c9c9c;
+}
+
+.typeJob {
+  display: flex;
+  gap: 1.5rem;
+
+  > .type {
     font-family: Roboto;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    padding: 0.4rem 0.6rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
+    color: #ed5353;
+  }
 }
 
-
-.joblist{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-    width: 64vw;
-    padding: 0.5rem 1.5rem;
-    box-shadow: 0px 0px 22px 4px #ff202040;
+.compmain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
 }
 
-.logoside{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.skillSide {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rem;
 }
 
-.Company_Logo{
-    height: 3rem;
-}
+.jobSkills {
+  display: flex;
+  gap: 0.5rem;
 
-.jobdetails{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-}
-.jobRole{
-    font-family: Roboto;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: black;
-}
-
-.jobaccets{
-    display: flex;
-    gap: 1rem;
-
-}
-
-
-.employee{
-    font-family: Roboto;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #9C9C9C;
-}
-.grouplogo,.currency{
-    color: #9C9C9C;
-}
-
-.typeJob{
-    display: flex;
-    gap: 1.5rem;
-
-    >.type{
-        font-family: Roboto;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: #ED5353;
-    }
-}
-
-.compmain{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-
-
-.skillSide{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 2rem;
-}
-
-.jobSkills{
-    display: flex;
-    gap: 0.5rem;
-
-    >.jobskillreq{
-        font-family: DM Sans;
-        font-size: 1rem;
-        font-weight: 500;
-        background-color: #FFEEEE;
-        padding: 0.4rem 0.6rem;
-        border-radius: 2px;
-    }
-}
-
-.jobviewdetails{
+  > .jobskillreq {
     font-family: DM Sans;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
-    color: white;
-    background-color: #ED5353;
-    border-radius: 4px;
-    border: none;
-    padding: 0.2rem 0.7rem;
-    cursor: pointer;
+    background-color: #ffeeee;
+    padding: 0.4rem 0.6rem;
+    border-radius: 2px;
+  }
 }
 
-.jobslist{
-    display: flex;
-    flex-direction: column;
-    gap: 1.3rem;
+.jobviewdetails {
+  font-family: DM Sans;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: white;
+  background-color: #ed5353;
+  border-radius: 4px;
+  border: none;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
+.jobslist {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}

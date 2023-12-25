@@ -143,43 +143,53 @@ exports.updateJob = async (req, res) => {
 exports.filterJob = async (req, res) => {
   try {
     const { skills, jobTitle } = req.body;
-
-    if (!skills && !jobTitle) {
-      const jobs = await Job.find();
-      return res.status(200).json({
-        success: true,
-        job: jobs,
-        message: "All Job fetched successfully",
-      });
+    let filterQuery = {};
+    if (jobTitle) {
+      filterQuery.jobTitle = jobTitle;
     }
 
-    if (jobTitle && !skills) {
-      const jobs = await Job.find({ position: { $in: jobTitle } });
-      return res.status(200).json({
-        success: true,
-        job: jobs,
-        message: "Job fetched based on jobtitle successfully",
-      });
+    if (skills) {
+      filterQuery.skills = { $in: skills.split("&") };
     }
+    console.log(filterQuery);
+    const filterJob = await Job.find(query).sort({ createdAt: -1 });
 
-    let skillsArray = skills.split(",").map((skill) => skill.trim());
-    console.log(" length of akilled array ", skillsArray.length);
+    // if (!skills && !jobTitle) {
+    //   const jobs = await Job.find();
+    //   return res.status(200).json({
+    //     success: true,
+    //     job: jobs,
+    //     message: "All Job fetched successfully",
+    //   });
+    // }
 
-    console.log(skillsArray);
+    // if (jobTitle && !skills) {
+    //   const jobs = await Job.find({ position: { $in: jobTitle } });
+    //   return res.status(200).json({
+    //     success: true,
+    //     job: jobs,
+    //     message: "Job fetched based on jobtitle successfully",
+    //   });
+    // }
 
-    if (!jobTitle && skills) {
-      const filterJob = await Job.find({ skills: { $all: skillsArray } });
-      return res.status(200).json({
-        success: true,
-        filterJob: filterJob,
-        message: "Job filtered based  on skills successfully",
-      });
-    }
+    // let skillsArray = skills.split(",").map((skill) => skill.trim());
+    // console.log(" length of akilled array ", skillsArray.length);
 
-    const filterJob = await Job.find({
-      skills: { $all: skillsArray },
-      position: { $all: jobTitle },
-    });
+    // console.log(skillsArray);
+
+    // if (!jobTitle && skills) {
+    //   const filterJob = await Job.find({ skills: { $all: skillsArray } });
+    //   return res.status(200).json({
+    //     success: true,
+    //     filterJob: filterJob,
+    //     message: "Job filtered based  on skills successfully",
+    //   });
+    // }
+
+    // const filterJob = await Job.find({
+    //   skills: { $all: skillsArray },
+    //   position: { $all: jobTitle },
+    // });
 
     return res.status(200).json({
       success: true,
@@ -196,24 +206,40 @@ exports.filterJob = async (req, res) => {
   }
 };
 
+exports.detailJob = async (req, res) => {
+  try {
+    const jobId = req.params.jobId;
+    console.log(jobId);
+    const jobDetails = await Job.findById({ _id: jobId });
+    res.status(200).json({
+      success: true,
+      jobDetails: jobDetails,
+      message: "job details fetched succesffuly",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      success: false,
+      message: "something went wrong in fetching job details",
+      error: error.message,
+    });
+  }
+};
 
-exports.detailJob = async(req ,res) => {
-    try{
-        const jobId = req.params.jobId;
-        console.log(jobId)
-        const jobDetails = await Job.findById({_id:jobId});
-        res.status(200).json({
-            success:true,
-            jobDetails:jobDetails,
-            message:"job details fetched succesffuly"
-        })
-    }
-    catch(error){
-        console.log(error)
-        res.status(404).json({
-            success: false,
-            message: "something went wrong in fetching job details",
-            error:error.message
-        })
-    }
-}
+exports.getAllJobs = async (req, res) => {
+  try {
+    const allJobs = await Job.find();
+    res.status(200).json({
+      success: true,
+      allJobs: allJobs,
+      message: "all jobs fetched succesffuly",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      success: false,
+      message: "something went wrong in fetching jobs",
+      error: error.message,
+    });
+  }
+};

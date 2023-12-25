@@ -40,6 +40,20 @@
   border-radius: 5px;
   width: 30vw;
   font-family: DM Sans;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.4rem;
+}
+
+.addJobSelect{
+  width: 30vw;
+}
+
+.select{
+  width: 10vw;
+  border: 1.5px solid #c2c2c2;
+  border-radius: 5px;
+  font-family: DM Sans;
   font-size: .9rem;
   font-weight: 500;
   padding: 0.4rem;
@@ -60,16 +74,19 @@
   justify-content: flex-end;
   width: 100%;
 }
+
 .cancelbtn{
   color: #C2C2C2;
   border: 1px solid #CECECE;
   
 }
+
 .addJobBtn{
   color: #FFFFFF;
   background-color: #ED5353;
   border: none;
 }
+
 
 
 

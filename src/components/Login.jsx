@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import image from "../Assets/register.png";
 import axios from "axios";
 import { useAuth } from "../store/auth";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Login = () => {
   const navigate = useNavigate()
@@ -15,12 +16,13 @@ const Login = () => {
   });
   const { storeTokenInLS } = useAuth()
 
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (isValidForm()) {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/v1/login",
+          `${BASE_URL}/login`,
           loginData
         );
         const { success, message } = response.data;
