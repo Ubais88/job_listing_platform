@@ -4,9 +4,11 @@ import "../Styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../Assets/register.png";
 import axios from "axios";
+import { useAuth } from "../store/auth";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Signup = () => {
+  const { storeTokenInLS } = useAuth()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: "",

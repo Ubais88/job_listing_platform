@@ -4,6 +4,7 @@ import Template from "./Template";
 import image from "../Assets/addjob.png";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const AddJob = () => {
