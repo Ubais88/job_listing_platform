@@ -1,4 +1,3 @@
-const job = require("../models/job");
 const Job = require("../models/job");
 
 exports.createJob = async (req, res) => {
@@ -16,12 +15,15 @@ exports.createJob = async (req, res) => {
       skills,
       information,
     } = req.body;
-
+    console.log(req.body);
     let skillsArray = skills;
+    console.log("type of skills", typeof skills);
     if (typeof skills === "string") {
       skillsArray = skills.split(",").map((skill) => skill.trim());
     }
-
+    console.log("SkillsArray :-", skillsArray);
+    console.log("Skills Array length :" + skillsArray.length);
+    console.log("T/F", skillsArray.length === 0);
     if (
       !name ||
       !logoUrl ||
@@ -32,28 +34,30 @@ exports.createJob = async (req, res) => {
       !location ||
       !description ||
       !about ||
-      skillsArray.length == 0 ||
+      skillsArray.length === 0 ||
       !information
     ) {
+      console.log("problem in data");
       return res.status(401).json({
         success: false,
         message: "all fields are required",
       });
     }
-
-    if (!["Full Time", "Part Time", "Intership"].includes(jobType)) {
+    console.log("Data is fine");
+    if (!["Full Time", "Part Time", "Internship"].includes(jobType)) {
       return res.status(401).json({
         success: false,
         message: "Enter Valid Job Type",
       });
     }
-
+    console.log("JobType: " + jobType);
     if (!["Remote", "Office", "Hybrid"].includes(remote)) {
       return res.status(401).json({
         success: false,
         message: "Enter Valid value Remote/Office/Hybrid",
       });
     }
+    console.log("remote: " + remote);
 
     const savedjob = await Job.create({
       name,
@@ -68,13 +72,14 @@ exports.createJob = async (req, res) => {
       skills: skillsArray,
       information,
     });
+    console.log("saved job:- ", savedjob);
     res.status(200).json({
       success: true,
       job: savedjob,
       message: "Job saved in DB successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.log("Error in Catch", error);
     res.status(404).json({
       success: false,
       error: error.message,
@@ -99,7 +104,7 @@ exports.updateJob = async (req, res) => {
       information,
     } = req.body;
 
-    const jobId = req.params.jobId;
+    const {id} = req.params;
     const recruitername = req.user.name;
     let skillsArray = skills;
     if (typeof skills === "string") {
@@ -107,7 +112,7 @@ exports.updateJob = async (req, res) => {
     }
 
     const updatedjob = await Job.findByIdAndUpdate(
-      jobId,
+      id,
       {
         name,
         logoUrl,
@@ -127,7 +132,7 @@ exports.updateJob = async (req, res) => {
     res.status(200).json({
       success: true,
       recruitername,
-      job: updatedjob,
+      updatedjob: updatedjob,
       message: "Job Updated in DB successfully",
     });
   } catch (error) {
@@ -140,67 +145,35 @@ exports.updateJob = async (req, res) => {
   }
 };
 
+
 exports.filterJob = async (req, res) => {
   try {
-    const { skills, jobTitle } = req.body;
+    const { newSkills, jobTitle } = req.query;
     let filterQuery = {};
+
     if (jobTitle) {
-      filterQuery.jobTitle = jobTitle;
+      filterQuery.position = { $regex: jobTitle, $options: 'i' };
     }
 
-    if (skills) {
-      filterQuery.skills = { $in: skills.split("&") };
+    if (newSkills) {
+      filterQuery.skills = { $in: newSkills.split('&') };
     }
-    console.log(filterQuery);
-    const filterJob = await Job.find(query).sort({ createdAt: -1 });
 
-    // if (!skills && !jobTitle) {
-    //   const jobs = await Job.find();
-    //   return res.status(200).json({
-    //     success: true,
-    //     job: jobs,
-    //     message: "All Job fetched successfully",
-    //   });
-    // }
+    console.log("newSkills from user: ", newSkills);
+    console.log("received from user: ", filterQuery);
 
-    // if (jobTitle && !skills) {
-    //   const jobs = await Job.find({ position: { $in: jobTitle } });
-    //   return res.status(200).json({
-    //     success: true,
-    //     job: jobs,
-    //     message: "Job fetched based on jobtitle successfully",
-    //   });
-    // }
-
-    // let skillsArray = skills.split(",").map((skill) => skill.trim());
-    // console.log(" length of akilled array ", skillsArray.length);
-
-    // console.log(skillsArray);
-
-    // if (!jobTitle && skills) {
-    //   const filterJob = await Job.find({ skills: { $all: skillsArray } });
-    //   return res.status(200).json({
-    //     success: true,
-    //     filterJob: filterJob,
-    //     message: "Job filtered based  on skills successfully",
-    //   });
-    // }
-
-    // const filterJob = await Job.find({
-    //   skills: { $all: skillsArray },
-    //   position: { $all: jobTitle },
-    // });
+    const filterJob = await Job.find(filterQuery).sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
       filterJob: filterJob,
-      message: "Job filtered based on title and skills successfully",
+      message: "Job filtered based on title and newSkills successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(404).json({
+    res.status(500).json({
       success: false,
-      message: "something went wrong in job filter",
+      message: "Something went wrong in job filter",
       error: error.message,
     });
   }
@@ -210,10 +183,10 @@ exports.detailJob = async (req, res) => {
   try {
     const jobId = req.params.jobId;
     console.log(jobId);
-    const jobDetails = await Job.findById({ _id: jobId });
+    const jobDetail = await Job.findById({ _id: jobId });
     res.status(200).json({
       success: true,
-      jobDetails: jobDetails,
+      jobDetail: jobDetail,
       message: "job details fetched succesffuly",
     });
   } catch (error) {

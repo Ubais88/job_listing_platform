@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import image from "../Assets/register.png";
 import axios from "axios";
 import { useAuth } from "../store/auth";
+import toast from "react-hot-toast";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Signup = () => {
@@ -26,10 +27,11 @@ const Signup = () => {
       const { success, message } = response.data;
 
         if (success) {
-          console.log("Signup Successfully");
+          toast.success("Signup Successfully")
           storeTokenInLS(response.data.token)
           navigate('/') 
         } else {
+          toast.error(message)
           console.log(message);
         }
     }

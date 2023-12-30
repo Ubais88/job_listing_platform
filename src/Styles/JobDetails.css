@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  background-color: #FFEEEE;
+  background-color: #ffeeee;
 }
 
-.nav{
-  background-color: #FFEEEE;
+.nav {
+  background-color: #ffeeee;
 }
 
 .jobhead {
@@ -40,12 +40,47 @@
   gap: 1rem;
   /* justify-content: center; */
 }
+.comp_Logo {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+}
+.comp_Logo_grp {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.comp_Name {
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #999999;
+}
 
 .time {
   font-family: DM Sans;
   font-size: 0.8rem;
   font-weight: 500;
   color: #999999;
+}
+
+.pos_editjob {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editjob_btn {
+  background-color: #ed5353;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: DM Sans;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .jobrole {
@@ -104,11 +139,17 @@
   color: #595959;
 }
 
-.aboutCompany ,.aboutJob ,.aboutskills ,.additionalContainer{
+.aboutCompany,
+.aboutJob,
+.aboutskills,
+.additionalContainer {
   margin: 1rem 0;
 }
 
-.AboutcompHeading,.aboutJobHeading,.skillsHeading,.addiHeading {
+.AboutcompHeading,
+.aboutJobHeading,
+.skillsHeading,
+.addiHeading {
   font-family: DM Sans;
   font-size: 1.1rem;
   font-weight: 700;
@@ -116,22 +157,23 @@
   margin: 1rem 0;
 }
 
-.aboutCompDetail , .aboutJobDetails ,.skillTag ,.addiContent{
+.aboutCompDetail,
+.aboutJobDetails,
+.skillTag,
+.addiContent {
   font-family: DM Sans;
-font-size: 1.1rem;
-font-weight: 400;
-color: #595959;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #595959;
 }
 
-.skillsContainer{
+.skillsContainer {
   display: flex;
   gap: 1rem;
-  
 }
 
-.skillTag{
-  background-color: #FFEEEE;
+.skillTag {
+  background-color: #ffeeee;
   padding: 0.5rem;
   border-radius: 1.2rem;
-
 }

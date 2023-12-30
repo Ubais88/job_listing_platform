@@ -10,50 +10,92 @@ import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import axios from "axios";
+import toast from "react-hot-toast";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Home = () => {
   const navigate = useNavigate();
-  const [skills, setSkills] = useState([]);
-  const { isLoggedIn, LogoutUser } = useAuth();
-  const [allJobs , setAllJobs] = useState([]);
+  const [jobTitle, setJobTitle] = useState("");
+  const [filterSkills, setFilterskills] = useState([]);
+  const newSkills = filterSkills.join(", ");
+  const { isLoggedIn } = useAuth();
+  const [allJobs, setAllJobs] = useState([]);
 
   const clickHandler = (e) => {
-    console.log(e.target.value);
-    const value = skills.filter((item) => item == e.target.value)
-    if(value.length){
-      console.log("value: " + value);
-      return
+    if (isLoggedIn) {
+      const value = filterSkills.filter((item) => item == e.target.value);
+      if (value.length) {
+        return;
+      }
+      setFilterskills([...filterSkills, e.target.value]);
     }
-    setSkills([...skills, e.target.value]);
+    else{
+      toast.error("Please Login First")
+    }
   };
 
   const clearSkills = () => {
-    setSkills([]);
+    setFilterskills([]);
   };
   const removeSkill = (index) => {
     console.log(index);
-    const newArray = skills.slice(0, index).concat(skills.slice(index + 1));
-    setSkills(newArray);
+    const newArray = filterSkills
+      .slice(0, index)
+      .concat(filterSkills.slice(index + 1));
+    setFilterskills(newArray);
   };
 
-  const loadJobs = async() => {
-    try{
-      console.log("Base URL: " ,BASE_URL)
+  const handleTitleChange = (e) => {
+    setJobTitle(e.target.value);
+    filterJobs();
+  }; 
+
+  const filterJobs = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/filterjob`, {
+        params: {
+          newSkills: newSkills,
+          jobTitle: jobTitle,
+        },
+      });
+      const { success, filterJob } = response.data;
+      if (success) {
+        setAllJobs(filterJob);
+      } else {
+        setAllJobs([]);
+      }
+      console.log("Filter Jobs: ", filterJob);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const loadJobs = async () => {
+    try {
       const response = await axios.get(`${BASE_URL}/getalljobs`);
-      // const { success, message } = response.data;
-      const alldbJobs = response.data.allJobs;
-      setAllJobs(alldbJobs)
-      console.log(allJobs)
+      const { success, allJobs } = response.data;
+      if (success) {
+        setAllJobs(allJobs);
+      } else {
+        setAllJobs([]);
+      }
+      console.log("Filter Jobs: ", allJobs);
+    } catch (error) {
+      console.log(error.message);
     }
-    catch(error){
-      console.log(error.message)
-    }
-  }
+  };
 
   useEffect(() => {
-    loadJobs()
-  }, [])
+    // console.log("skills length: ",skills.length)
+    if (filterSkills.length == 0) {
+      loadJobs();
+    }
+
+    if (filterSkills.length !== 0) {
+      console.log("filterSkills : ", filterSkills);
+      filterJobs();
+    }
+  }, [filterSkills]);
 
 
   return (
@@ -71,7 +113,8 @@ const Home = () => {
             <input
               type="text"
               name=""
-              id=""
+              value={jobTitle}
+              onChange={handleTitleChange}
               className="search"
               placeholder="Type any job title"
             />
@@ -84,13 +127,13 @@ const Home = () => {
                 </option>
                 <option value="HTML">HTML</option>
                 <option value="CSS">CSS</option>
-                <option value="JAVASCRIPT">JAVASCRIPT</option>
-                <option value="REACT">REACT</option>
+                <option value="JS">JAVASCRIPT</option>
+                <option value="React">REACT</option>
               </select>
               <div className="selected">
-                {skills.map((skills, index) => (
+                {filterSkills.map((skill, index) => (
                   <div className="skills" key={index}>
-                    <p className="skillP">{skills}</p>
+                    <p className="skillP">{skill}</p>
                     <RxCross2
                       size={34}
                       className="crossIcon"
@@ -105,7 +148,9 @@ const Home = () => {
                 <p
                   className="clear"
                   onClick={clearSkills}
-                  style={{ display: skills.length < 1 ? "none" : "block" }}
+                  style={{
+                    display: filterSkills.length < 1 ? "none" : "block",
+                  }}
                 >
                   Clear
                 </p>
@@ -123,7 +168,7 @@ const Home = () => {
               <p
                 className="clear clearm"
                 onClick={clearSkills}
-                style={{ display: skills.length < 1 ? "none" : "block" }}
+                style={{ display: filterSkills.length < 1 ? "none" : "block" }}
               >
                 Clear
               </p>
@@ -133,187 +178,66 @@ const Home = () => {
 
         {/* job ads details */}
         <div className="jobslist">
-          {/* <div className="joblist">
-            <div className="logoside">
-              <div className="Company_Logo_Cont">
-                <img src={logo} alt="Company_Logo" className="Company_Logo" />
-              </div>
-              <div className="jobdetails">
-                <p className="jobRole">Frontend Developer</p>
-                <div className="jobaccets">
-                  <div className="compmain">
-                    <FaUserGroup className="grouplogo" />
-                    <p className="employee">11-50</p>
+          {allJobs.length > 0 ? (
+            allJobs.map((job) => (
+              <div className="joblist" key={job._id}>
+                <div className="logoside">
+                  <div className="Company_Logo_Cont">
+                    <img
+                      src={job.logoUrl}
+                      alt="Company_Logo"
+                      className="Company_Logo"
+                    />
                   </div>
-                  <div className="compmain">
-                    <MdOutlineCurrencyRupee className="currency" />
-                    <p className="employee">256789</p>
-                  </div>
-                  <div className="compmain">
-                    <img src={flag} alt="flag" />
-                    <p className="employee">Delhi</p>
-                  </div>
-                </div>
-                <div className="typeJob">
-                  <p className="type">Remote</p>
-                  <p className="type">Full Time</p>
-                </div>
-              </div>
-            </div>
-            <div className="skillSide">
-              <div className="jobSkills">
-                <p className="jobskillreq">HTML</p>
-                <p className="jobskillreq">CSS</p>
-                <p className="jobskillreq">REACT</p>
-                <p className="jobskillreq">JAVASCRIPT</p>
-              </div>
-              <div className="jobview">
-                <button
-                  className="jobviewdetails"
-                  onClick={() => navigate("/jobdetail")}
-                >
-                  View details
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="joblist">
-            <div className="logoside">
-              <div className="Company_Logo_Cont">
-                <img src={logo} alt="Company_Logo" className="Company_Logo" />
-              </div>
-              <div className="jobdetails">
-                <p className="jobRole">Frontend Developer</p>
-                <div className="jobaccets">
-                  <div className="compmain">
-                    <FaUserGroup className="grouplogo" />
-                    <p className="employee">11-50</p>
-                  </div>
-                  <div className="compmain">
-                    <MdOutlineCurrencyRupee className="currency" />
-                    <p className="employee">256789</p>
-                  </div>
-                  <div className="compmain">
-                    <img src={flag} alt="flag" />
-                    <p className="employee">Delhi</p>
+                  <div className="jobdetails">
+                    <p className="jobRole">{job.position}</p>
+                    <div className="jobaccets">
+                      <div className="compmain">
+                        <FaUserGroup className="grouplogo" />
+                        <p className="employee">11-50</p>
+                      </div>
+                      <div className="compmain">
+                        <MdOutlineCurrencyRupee className="currency" />
+                        <p className="employee">256789</p>
+                      </div>
+                      <div className="compmain">
+                        <img src={flag} alt="flag" />
+                        <p className="employee">{job.location}</p>
+                      </div>
+                    </div>
+                    <div className="typeJob">
+                      <p className="type">{job.jobType}</p>
+                      {/* <p className="type">Full Time</p> */}
+                    </div>
                   </div>
                 </div>
-                <div className="typeJob">
-                  <p className="type">Remote</p>
-                  <p className="type">Full Time</p>
-                </div>
-              </div>
-            </div>
-            <div className="skillSide">
-              <div className="jobSkills">
-                <p className="jobskillreq">HTML</p>
-                <p className="jobskillreq">CSS</p>
-                <p className="jobskillreq">REACT</p>
-                <p className="jobskillreq">JAVASCRIPT</p>
-              </div>
-              <div className="jobview">
-                <button className="jobviewdetails">View details</button>
-              </div>
-            </div>
-          </div>
-          <div className="joblist">
-            <div className="logoside">
-              <div className="Company_Logo_Cont">
-                <img src={logo} alt="Company_Logo" className="Company_Logo" />
-              </div>
-              <div className="jobdetails">
-                <p className="jobRole">Frontend Developer</p>
-                <div className="jobaccets">
-                  <div className="compmain">
-                    <FaUserGroup className="grouplogo" />
-                    <p className="employee">11-50</p>
+                <div className="skillSide">
+                  <div className="jobSkills">
+                    {job.skills.slice(0, 4).map((skill, index) => (
+                      <p className="jobskillreq" key={index}>
+                        {skill}
+                      </p>
+                    ))}
                   </div>
-                  <div className="compmain">
-                    <MdOutlineCurrencyRupee className="currency" />
-                    <p className="employee">256789</p>
-                  </div>
-                  <div className="compmain">
-                    <img src={flag} alt="flag" />
-                    <p className="employee">Delhi</p>
-                  </div>
-                </div>
-                <div className="typeJob">
-                  <p className="type">Remote</p>
-                  <p className="type">Full Time</p>
-                </div>
-              </div>
-            </div>
-            <div className="skillSide">
-              <div className="jobSkills">
-                <p className="jobskillreq">HTML</p>
-                <p className="jobskillreq">CSS</p>
-                <p className="jobskillreq">REACT</p>
-                <p className="jobskillreq">JAVASCRIPT</p>
-              </div>
-              <div className="jobview">
-                <button className="jobviewdetails">View details</button>
-              </div>
-            </div>
-          </div> */}
 
-          {
-            allJobs.length > 0 && (
-              allJobs.map((job) => (
-                <div className="joblist" key={job._id}>
-            <div className="logoside">
-              <div className="Company_Logo_Cont">
-                <img src={job.logoUrl} alt="Company_Logo" className="Company_Logo" />
-              </div>
-              <div className="jobdetails">
-                <p className="jobRole">{job.position}</p>
-                <div className="jobaccets">
-                  <div className="compmain">
-                    <FaUserGroup className="grouplogo" />
-                    <p className="employee">11-50</p>
-                  </div>
-                  <div className="compmain">
-                    <MdOutlineCurrencyRupee className="currency" />
-                    <p className="employee">256789</p>
-                  </div>
-                  <div className="compmain">
-                    <img src={flag} alt="flag" />
-                    <p className="employee">{job.location}</p>
+                  <div className="jobview">
+                    <button
+                      className="jobviewdetails"
+                      onClick={() => {
+                        navigate(`/jobdetail/${job._id}`);
+                      }}
+                    >
+                      View details
+                    </button>
                   </div>
                 </div>
-                <div className="typeJob">
-                  <p className="type">{job.jobType}</p>
-                  {/* <p className="type">Full Time</p> */}
-                </div>
               </div>
-            </div>
-            <div className="skillSide">
-              <div className="jobSkills">
-              {
-                job.skills.map((skill, index) => (
-                <p className="jobskillreq" key={index}>{skill}</p>
-                ))
-              }
-              </div>
-
-              <div className="jobview">
-                <button
-                  className="jobviewdetails"
-                  onClick={() => navigate("/jobdetail")}
-                >
-                  View details
-                </button>
-              </div>
-            </div>
-          </div>
-              ))
-            )
-          }
-
-
+            ))
+          ) : (
+            <h1 style={{ color: "#ed5353" }}>NO JOB PRESENT WITH THIS SKILL</h1>
+          )}
         </div>
-
       </div>
-
     </div>
   );
 };

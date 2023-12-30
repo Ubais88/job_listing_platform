@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Template from "./Template";
 import "../Styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../Assets/register.png";
 import axios from "axios";
 import { useAuth } from "../store/auth";
+import toast from "react-hot-toast";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Login = () => {
@@ -28,11 +29,12 @@ const Login = () => {
         const { success, message } = response.data;
 
         if (success) {
-          console.log("Login Successfully");
+          toast.success('Login Successfully')
           storeTokenInLS(response.data.token)
           navigate('/') 
         } else {
-          console.log(message);
+          // console.log(message);
+          toast.error(message)
         }
       } catch (error) {
         console.log("Login Data not matched");
