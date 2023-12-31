@@ -5,8 +5,8 @@ import image from "../Assets/addjob.png";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 import { useAuth } from "../store/auth";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const AddJob = () => {
   const { isLoggedIn } = useAuth();
