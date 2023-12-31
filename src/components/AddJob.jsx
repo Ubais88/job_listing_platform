@@ -82,7 +82,7 @@ const AddJob = () => {
           information: "",
         });
         return;
-      }
+      } 
       if (!id) {
         const response = await axios.post(`${BASE_URL}/createjob`, jobData, {
           headers: {

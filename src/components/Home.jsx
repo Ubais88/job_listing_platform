@@ -72,6 +72,7 @@ const Home = () => {
 
   const loadJobs = async () => {
     try {
+      console.log("Base url: ",BASE_URL)
       const response = await axios.get(`${BASE_URL}/getalljobs`);
       const { success, allJobs } = response.data;
       if (success) {
@@ -81,6 +82,7 @@ const Home = () => {
       }
       console.log("Filter Jobs: ", allJobs);
     } catch (error) {
+      
       console.log(error.message);
     }
   };

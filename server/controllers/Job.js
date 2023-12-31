@@ -199,6 +199,7 @@ exports.detailJob = async (req, res) => {
   }
 };
 
+
 exports.getAllJobs = async (req, res) => {
   try {
     const allJobs = await Job.find();
@@ -209,7 +210,7 @@ exports.getAllJobs = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(404).json({
+    res.status(500).json({
       success: false,
       message: "something went wrong in fetching jobs",
       error: error.message,

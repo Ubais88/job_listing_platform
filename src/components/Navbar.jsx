@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "../Assets/header.png";
 import "../Styles/Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from '../Assets/dporg.jpg'
 import { useAuth } from "../store/auth";
 
 const Navbar = () => {
   const { isLoggedIn , LogoutUser} = useAuth();
+  const navigate = useNavigate();
 console.log(isLoggedIn)
   return (
     <div className="navbarContainer">
@@ -15,7 +16,7 @@ console.log(isLoggedIn)
       </div>
 
       <div className="finderContainer">
-        <p className="platformtitle">Jobfinder</p>
+        <p className="platformtitle" onClick={() => navigate('/')}>Jobfinder</p>
 
         {isLoggedIn ? (
           <div className="authbtncontainer1">
